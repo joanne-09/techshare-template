@@ -26,7 +26,7 @@ function App() {
         setIsLoading(false);
       }, 300);
     } catch (e) {
-      setFortune("Server Connection Failed.");
+      setFortune(`Server Connection Failed ${e}`);
       setIsCracked(true);
       setIsLoading(false);
     }

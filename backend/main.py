@@ -18,6 +18,9 @@ GLOBAL_HISTORY = []
 class FortuneResponse(BaseModel):
     fortune: str
 
+class HistoryResponse(BaseModel):
+    history: list[str]
+
 FORTUNES = [
     "The code you write today will be legendary.",
     "A major merge conflict is avoided by your wisdom.",
@@ -34,6 +37,6 @@ def draw():
     GLOBAL_HISTORY.append(fortune)
     return {"fortune": fortune}
 
-@app.get("/history", response_model=list[str])
+@app.get("/history", response_model=HistoryResponse)
 def history():
     return {"history": GLOBAL_HISTORY[-3:]}
