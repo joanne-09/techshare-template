@@ -30,7 +30,7 @@ jobs:
           npm ci
           npm run build
         env:
-          # TODO: set API URL for production
+          VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
