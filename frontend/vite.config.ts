@@ -10,5 +10,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
-  resolve: { tsconfigPaths: true }
+  resolve: { tsconfigPaths: true },
+  base: '/techshare-template/',
 })
