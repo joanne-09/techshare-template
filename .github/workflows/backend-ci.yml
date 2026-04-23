@@ -40,10 +40,3 @@ jobs:
       - name: Run API tests
         # TODO: run pytest
         run: pytest test_main.py
-
-      - name: Upload backend source
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend-src
-          path: backend/
-          retention-days: 1
