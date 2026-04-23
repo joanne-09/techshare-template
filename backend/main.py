@@ -13,8 +13,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-GLOBAL_HISTORY = []
-
 class FortuneResponse(BaseModel):
     fortune: str
 
@@ -34,9 +32,9 @@ FORTUNES = [
 @app.get("/draw", response_model=FortuneResponse)
 def draw():
     fortune = random.choice(FORTUNES)
-    GLOBAL_HISTORY.append(fortune)
     return {"fortune": fortune}
 
+# TODO: implement /history endpoint to return top 3 recently drawn fortunes
 @app.get("/history", response_model=HistoryResponse)
 def history():
-    return {"history": GLOBAL_HISTORY[-3:]}
+    

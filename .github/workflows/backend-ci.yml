@@ -35,7 +35,7 @@ jobs:
 
       - name: Run API tests
         # TODO: run pytest
-        run: pytest test_main.py
+        run: 
 
       - name: Upload backend source
         uses: actions/upload-artifact@v4
