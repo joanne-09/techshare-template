@@ -1,4 +1,5 @@
 name: Backend CI
+
 on:
   push:
     paths:
@@ -8,30 +9,36 @@ on:
       - 'backend/**'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
+          # set requirements to use pip cache
+          cache-dependency-path: backend/requirements.txt
+
       - name: Install dependencies
+        # no need to setup cache
         run: |
-          python -m venv .venv
-          .venv/bin/pip install -r requirements.txt
-      - name: Run FastAPI health check
-        run: |
-          .venv/bin/python -c "print('Backend up')"
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
       - name: Run API tests
-        run: |
-          .venv/bin/pytest test_main.py
+        # run pytest
+        run: pytest test_main.py
+
       - name: Upload backend source
         uses: actions/upload-artifact@v4
         with:
           name: backend-src
           path: backend/
+          retention-days: 1
