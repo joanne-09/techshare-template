@@ -7,6 +7,8 @@ function App() {
   const [fortune, setFortune] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const [history, setHistory] = useState<string[]>([]);
+
   const handleOpen = async () => {
     if (isCracked || isLoading) return;
     
@@ -14,8 +16,10 @@ function App() {
     try {
       const res = await fetch(`${API_URL}/draw`);
       const data = await res.json();
+
+      // update history with the new fortune
+      setHistory(prev => [data.fortune, ...prev].slice(0, 3));
       
-      // 稍微延遲讓動畫有節奏感
       setTimeout(() => {
         setFortune(data.fortune);
         setIsCracked(true);
@@ -37,25 +41,33 @@ function App() {
     <div className="app-wrapper">
       <h1 className="title">Insight.</h1>
 
-      <div className={`cookie-container ${isCracked ? 'cracked' : ''}`} onClick={handleOpen}>
-        {/* 封閉狀態的點擊核心 */}
-        <div className="cookie-core">
-          <span style={{ color: '#000', fontWeight: 'bold' }}>{isLoading ? '...' : ''}</span>
-        </div>
+      <div className="content">
+        <div className="coockie-section">
+          <div className={`cookie-container ${isCracked ? 'cracked' : ''}`} onClick={handleOpen}>
+            <div className="cookie-core">
+              <span style={{ color: '#000', fontWeight: 'bold' }}>{isLoading ? '...' : ''}</span>
+            </div>
 
-        {/* 展開後的內容 */}
-        <div className="fortune-paper">
-          <p className="fortune-text">{fortune}</p>
+            <div className="fortune-paper">
+              <p className="fortune-text">{fortune}</p>
+            </div>
+          </div>
+
+          <button 
+            className="action-btn" 
+            onClick={isCracked ? handleReset : handleOpen}
+            disabled={isLoading}
+          >
+            {isCracked ? 'Next One' : 'Explore'}
+          </button>
+        </div>
+        
+        <div className="history-list">
+          {history.map((item, index) => (
+            <div key={index} className="history-item">{item}</div> 
+          ))}
         </div>
       </div>
-
-      <button 
-        className="action-btn" 
-        onClick={isCracked ? handleReset : handleOpen}
-        disabled={isLoading}
-      >
-        {isCracked ? 'Next One' : 'Explore'}
-      </button>
     </div>
   )
 }
