@@ -17,8 +17,8 @@ function App() {
       const res = await fetch(`${API_URL}/draw`);
       const data = await res.json();
 
-      // update history with the new fortune
-      setHistory(prev => [data.fortune, ...prev].slice(0, 3));
+      const newHistory = await fetch(`${API_URL}/history`).then(res => res.json());
+      setHistory(newHistory.history);
       
       setTimeout(() => {
         setFortune(data.fortune);
