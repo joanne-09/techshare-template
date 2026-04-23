@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 function App() {
   const [isCracked, setIsCracked] = useState(false);
   const [fortune, setFortune] = useState('');
@@ -10,7 +12,7 @@ function App() {
     
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/draw');
+      const res = await fetch(`${API_URL}/draw`);
       const data = await res.json();
       
       // 稍微延遲讓動畫有節奏感
