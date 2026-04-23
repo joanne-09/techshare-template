@@ -4,7 +4,7 @@ on:
   # new PR merge to main branch will trigger CD workflow
   push:
     branches:
-      - master
+      - main
   workflow_dispatch: 
 
 jobs:
