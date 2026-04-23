@@ -29,3 +29,5 @@ FORTUNES = [
 @app.get("/draw", response_model=FortuneResponse)
 def draw():
     return {"fortune": random.choice(FORTUNES)}
+
+# TODO: design your own api here

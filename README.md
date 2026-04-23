@@ -1,56 +1,40 @@
+# Tech Share: CICD with GitHub Actions (Apple Style Insight)
 
-# 工程師專屬求籤筒／抽卡機：TechShare GitHub Actions CI/CD 範例
-
-## 專案簡介
-這是一個「工程師專屬的求籤筒／抽卡機」Demo，主打「極簡 API」+「有趣動畫」+「CI/CD 實戰」。
-
-### 系統架構
-```
-.
-├── .github/workflows/   # CI/CD YAML
-│   ├── frontend-ci.yml  # 前端 CI
-│   ├── backend-ci.yml   # 後端 CI
-│   └── cd.yml           # 部署
-├── frontend/            # React + TypeScript + 3D 卡片動畫
-├── backend/             # FastAPI (Python) 隨機籤詩 API
-└── docker-compose.yml   # 一鍵本地運行
-```
+## Tech Stack Overview
+- **Frontend**: React, TypeScript, Tailwind CSS (Apple Minimalist Design)
+- **Backend**: FastAPI (Python)
+- **Deployment**: GitHub Pages (Frontend), Vercel (Backend)
+- **CI/CD**: GitHub Actions
 
 ---
 
-## Demo 流程劇本
+## 實作指南
 
-### 第一幕：CI 救了你一命
-1. 你說：「籤筒太單調，加個『大吉』！」
-2. 故意把 API 回傳 key 寫錯（如 {"message": "大吉"}）。
-3. Push PR，CI 立刻紅燈（Pytest 檢查 key 必須是 fortune），Merge 被鎖。
-4. 金句：「沒有 CI，這種 bug 就會直接上線！」
+請按照以下步驟完成部署：
 
-### 第二幕：CD 的魔法瞬間
-1. 修好 API 格式，並改前端卡片背面顏色。
-2. Merge，CD 自動部署。
-3. 幾十秒後，現場觀眾刷新手機，看到新顏色！
-4. 金句：「不用 SSH，不用手動重啟，CD 讓新功能自動上線！」
+### 1. Fork repo
+點擊右上角的 `Fork` 按鈕，將此專案複製到你的帳號下。
 
----
+### 2. 後端部署與密鑰取得
+1. 在 `backend` 資料夾中，輸入 `npx vercel login` 登入 Vercel。
+2. 在專案中執行 `npx vercel link` 取得 `ORG_ID` 與 `PROJECT_ID`。
+3. 在個人設定取得 `VERCEL_TOKEN`。
+4. 將上述三者填入 GitHub 的 `Settings > Secrets and variables > Actions`。
 
-## 快速開始
-1. clone 專案
-2. `docker-compose up` 一鍵本地啟動
-3. 前端：`frontend/` 內開發，Vite + Tailwind + 3D 動畫
-4. 後端：`backend/` 內開發，FastAPI + 籤詩 API
+### 3. 開放 Actions 權限
+為了讓機器人能推送到 `gh-pages`，請至：
+`Settings > Actions > General > Workflow permissions` 改為 **Read and write permissions**。
 
----
+在 `Settings > Pages` 中，將 `Branch` 設為 `gh-pages`，並選擇 `/ (root)` 作為資料夾。
 
-## 技術亮點
-- Artifacts & Caching：actions/cache 加速
-- Path Filters：只針對異動路徑觸發
-- Secret Management：API URL 用 Secrets 注入
-- Pytest API 格式檢查，防止災難上線
+### 4. TODO
+你需要修復資料夾中的 `TODO`
+
+### 5. 填寫 VITE_API_URL
+部署成功後，將 Vercel 的後端網址填入 GitHub Secrets 中的 `VITE_API_URL`。
 
 ---
 
-## 延伸閱讀
-- [GitHub Actions 官方文件](https://docs.github.com/en/actions)
-- [Render 部署教學](https://render.com/docs/deploy-fastapi)
-- [GitHub Pages 部署教學](https://pages.github.com/)
+## 本地測試
+
+在最外層資料夾執行 `docker-compose up` 啟動前後端。前端將在 `http://localhost:5173` 運行，後端 API 將在 `http://localhost:8000` 運行。

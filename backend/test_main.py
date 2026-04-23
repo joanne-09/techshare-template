@@ -8,3 +8,5 @@ def test_draw_api():
     data = resp.json()
     assert "fortune" in data
     assert isinstance(data["fortune"], str)
+
+# TODO: test your own api here
