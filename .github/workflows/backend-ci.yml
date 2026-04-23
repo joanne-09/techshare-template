@@ -39,4 +39,5 @@ jobs:
 
       - name: Run API tests
         # TODO: run pytest
-        run: pytest test_main.py
+
+        run: 

@@ -33,12 +33,7 @@ jobs:
           npm ci
           npm run build
         env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './frontend/dist'
+          # set backend API URL
 
       - name: Deploy to GitHub Pages
         id: deployment

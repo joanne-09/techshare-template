@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
-const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '') || 'http://localhost:8000';
+// TODO: add backend API URL
+const API_URL = 'http://localhost:8000';
 
 function App() {
   const [isCracked, setIsCracked] = useState(false);
   const [fortune, setFortune] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
   const [history, setHistory] = useState<string[]>([]);
 
   const handleOpen = async () => {
@@ -17,9 +17,8 @@ function App() {
       const res = await fetch(`${API_URL}/draw`);
       const data = await res.json();
 
-      const newHistory = await fetch(`${API_URL}/history`).then(res => res.json());
-      setHistory(newHistory.history);
-      
+      // TODO: fetch and update history list
+          
       setTimeout(() => {
         setFortune(data.fortune);
         setIsCracked(true);
@@ -63,9 +62,7 @@ function App() {
         </div>
         
         <div className="history-list">
-          {history.map((item, index) => (
-            <div key={index} className="history-item">{item}</div> 
-          ))}
+          {/* TODO: display history list (reference to style.css) */}
         </div>
       </div>
     </div>
